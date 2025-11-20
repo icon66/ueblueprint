@@ -1,0 +1,328 @@
+@font-face {
+    font-family: "Roboto";
+    font-weight: normal;
+    src: url("../font/roboto-regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto";
+    font-stretch: condensed;
+    src: url("../font/roboto-condensed-regular.woff2") format("woff2");
+}
+
+ueb-blueprint {
+    --ueb-scale: 1;
+    --ueb-grid-actual-size: var(--ueb-grid-size);
+    --ueb-grid-line-color: #353535;
+    --ueb-grid-set-line-color: #161616;
+    --ueb-grid-axis-line-color: #000;
+    display: block;
+    position: relative;
+    font-family: Roboto, Noto, Oxygen, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: var(--ueb-font-size);
+    color: #fff;
+    user-select: none;
+}
+
+ueb-blueprint svg {
+    overflow: visible !important;
+    max-width: none !important;
+}
+
+.ueb-viewport-header {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.ueb-viewport-about {
+    margin-top: -6px;
+    padding: 0 8px;
+    align-self: center;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+@keyframes ueb-zoom-animation {
+    0% {
+        color: #7f7f7f;
+    }
+
+    100% {
+        color: #2b2b2b;
+    }
+}
+
+.ueb-zoom-changed .ueb-viewport-zoom {
+    animation: 1500ms ueb-zoom-animation;
+}
+
+.ueb-viewport-zoom {
+    margin-left: auto;
+    padding: 5px;
+    color: #2b2b2b;
+    /* 154% is to get an effective font size of 20px from --ueb-font-size which is 13 px by default */
+    font-size: 154%;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.ueb-viewport-type {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 60px;
+    font-weight: 900;
+    color: #80808040;
+    font-stretch: condensed;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.ueb-viewport-body {
+    position: relative;
+    height: var(--ueb-height, 30rem);
+    overflow: hidden;
+    scrollbar-width: 0;
+}
+
+.ueb-grid {
+    --ueb-grid-line-actual-width: calc(var(--ueb-grid-line-width) / var(--ueb-scale));
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    width: calc((100% + 2 * var(--ueb-grid-expand)) / var(--ueb-scale));
+    height: calc((100% + 2 * var(--ueb-grid-expand)) / var(--ueb-scale));
+    background-color: #262626;
+    background-image:
+        /* Axis lines */
+        linear-gradient(var(--ueb-grid-axis-line-color),
+            var(--ueb-grid-axis-line-color)),
+        linear-gradient(var(--ueb-grid-axis-line-color),
+            var(--ueb-grid-axis-line-color)),
+        /* Dark bigger grid */
+        linear-gradient(to right,
+            var(--ueb-grid-set-line-color),
+            var(--ueb-grid-set-line-color) var(--ueb-grid-line-actual-width),
+            transparent var(--ueb-grid-line-actual-width),
+            transparent),
+        linear-gradient(to bottom,
+            var(--ueb-grid-set-line-color),
+            var(--ueb-grid-set-line-color) var(--ueb-grid-line-actual-width),
+            transparent var(--ueb-grid-line-actual-width),
+            transparent),
+        /* Light grid */
+        linear-gradient(to right,
+            var(--ueb-grid-line-color),
+            var(--ueb-grid-line-color) var(--ueb-grid-line-actual-width),
+            transparent var(--ueb-grid-line-actual-width),
+            transparent),
+        linear-gradient(to bottom,
+            var(--ueb-grid-line-color),
+            var(--ueb-grid-line-color) var(--ueb-grid-line-actual-width),
+            transparent var(--ueb-grid-line-actual-width),
+            transparent);
+    background-size:
+        /* Axis lines */
+        100% var(--ueb-grid-line-actual-width),
+        var(--ueb-grid-line-actual-width) 100%,
+        /* Dark bigger grid */
+        calc(var(--ueb-grid-set) * var(--ueb-grid-actual-size)) calc(var(--ueb-grid-set) * var(--ueb-grid-actual-size)),
+        calc(var(--ueb-grid-set) * var(--ueb-grid-actual-size)) calc(var(--ueb-grid-set) * var(--ueb-grid-actual-size)),
+        /* Light grid */
+        var(--ueb-grid-actual-size) var(--ueb-grid-actual-size),
+        var(--ueb-grid-actual-size) var(--ueb-grid-actual-size);
+    background-position: calc(var(--ueb-translate-x) * 1px) calc(var(--ueb-translate-y) * 1px);
+    background-repeat: repeat-x, repeat-y, repeat, repeat, repeat, repeat;
+    scale: var(--ueb-scale) var(--ueb-scale);
+    transform-origin: 0 0;
+    overflow: hidden;
+}
+
+ueb-blueprint[data-scrolling="true"] .ueb-grid {
+    cursor: grabbing;
+}
+
+ueb-blueprint[data-scrolling="false"] .ueb-grid {
+    cursor: default;
+}
+
+ueb-blueprint.ueb-zoom--4 {
+    --ueb-grid-actual-size: calc(var(--ueb-grid-size) * 2);
+}
+
+ueb-blueprint.ueb-zoom--6 {
+    --ueb-grid-actual-size: calc(var(--ueb-grid-size) * 3);
+}
+
+ueb-blueprint.ueb-zoom--11 {
+    --ueb-grid-actual-size: calc(var(--ueb-grid-size) * 6);
+}
+
+.ueb-grid-content {
+    position: relative;
+    width: 0;
+    height: 0;
+    transform: translateX(calc(var(--ueb-translate-x) * 1px)) translateY(calc(var(--ueb-translate-y) * 1px));
+}
+
+.ueb-grid-content>div {
+    width: 0;
+    height: 0;
+}
+
+.ueb-positioned {
+    position: absolute;
+}
+
+ueb-selector {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-image:
+        /* Top */
+        repeating-linear-gradient(90deg,
+            transparent,
+            transparent calc(1px / var(--ueb-scale)),
+            white calc(2px / var(--ueb-scale)),
+            white calc(7px / var(--ueb-scale)),
+            transparent calc(7px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        repeating-linear-gradient(90deg,
+            black,
+            black calc(8px / var(--ueb-scale)),
+            transparent calc(9px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        /* Bottom */
+        repeating-linear-gradient(90deg,
+            transparent,
+            transparent calc(1px / var(--ueb-scale)),
+            white calc(2px / var(--ueb-scale)),
+            white calc(7px / var(--ueb-scale)),
+            transparent calc(7px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        repeating-linear-gradient(90deg,
+            black,
+            black calc(8px / var(--ueb-scale)),
+            transparent calc(9px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        /* Left */
+        repeating-linear-gradient(180deg,
+            transparent,
+            transparent calc(1px / var(--ueb-scale)),
+            white calc(1px / var(--ueb-scale)),
+            white calc(7px / var(--ueb-scale)),
+            transparent calc(7px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        repeating-linear-gradient(180deg,
+            black,
+            black calc(8px / var(--ueb-scale)),
+            transparent calc(9px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        /* Right */
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent calc(1px / var(--ueb-scale)),
+            white calc(2px / var(--ueb-scale)),
+            white calc(7px / var(--ueb-scale)),
+            transparent calc(7px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale))),
+        repeating-linear-gradient(0deg,
+            black,
+            black calc(8px / var(--ueb-scale)),
+            transparent calc(9px / var(--ueb-scale)),
+            transparent calc(11px / var(--ueb-scale)));
+    background-size:
+        /* Top */
+        100% calc(1px / var(--ueb-scale)),
+        100% calc(3px / var(--ueb-scale)),
+        /* Bottom */
+        100% calc(1px / var(--ueb-scale)),
+        100% calc(3px / var(--ueb-scale)),
+        /* Left */
+        calc(1px / var(--ueb-scale)) 100%,
+        calc(3px / var(--ueb-scale)) 100%,
+        /* Right */
+        calc(1px / var(--ueb-scale)) 100%,
+        calc(3px / var(--ueb-scale)) 100%;
+    background-position:
+        /* Top */
+        0 calc(1px / var(--ueb-scale)), 0 0,
+        /* Bottom */
+        0 calc(100% - 1px / var(--ueb-scale)), 0 100%,
+        /* Left */
+        calc(1px / var(--ueb-scale)) 0, 0 0,
+        /* Right */
+        calc(100% - 1px / var(--ueb-scale)) 0, 100% 0;
+    background-repeat: no-repeat;
+}
+
+ueb-blueprint[data-selecting="true"] ueb-selector {
+    visibility: visible;
+    @extend .ueb-positioned;
+}
+
+ueb-selector>* {
+    visibility: visible;
+}
+
+.ueb-ellipsis-nowrap-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ueb-info-dialog {
+    border: 6px solid #202020;
+    padding: 5px 30px;
+    background: #121212;
+    color: #f0f0f0;
+    box-shadow: 0 2px 10px 0 #000;
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+        outline: none;
+        color: #f0f0f0;
+    }
+}
+
+.ueb-info-dialog::backdrop {
+    background-color: #000000a0;
+    backdrop-filter: blur(4px);
+}
+
+/* Light mode */
+
+ueb-blueprint.ueb-light-mode {
+    --ueb-grid-line-color: #ddd;
+    --ueb-grid-set-line-color: #c0c0c0;
+    --ueb-grid-axis-line-color: #a0a0a0;
+}
+
+ueb-blueprint.ueb-light-mode .ueb-grid {
+    background-color: #f6f6f6;
+}
+
+ueb-blueprint.ueb-light-mode ueb-node.ueb-node-style-glass .ueb-node-wrapper {
+    background-color: #00000090;
+}
+
+ueb-blueprint.ueb-light-mode ueb-link .ueb-link-path {
+    filter: saturate(200%) brightness(0.6);
+}
+
+ueb-blueprint.ueb-light-mode .ueb-viewport-header {
+    background: rgba(0, 0, 0, .3);
+    color: #101010;
+}

@@ -1,0 +1,227 @@
+@use "style.scss";
+
+ueb-window {
+    display: block;
+    position: absolute;
+    border: 2px solid #101010;
+    top: 0;
+    left: 0;
+    transform: translateX(calc(var(--ueb-position-x) * 1px)) translateY(calc(var(--ueb-position-y) * 1px));
+    background: #242424;
+    box-shadow: 0 0 2px 0 #000000A0;
+    z-index: 1000;
+}
+
+.ueb-window-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
+    height: 30px;
+    background: #1a1a1a;
+}
+
+.ueb-window-content {
+    padding: 10px;
+    border: 1px solid #303030;
+}
+
+.ueb-window-name {
+    flex-grow: 1;
+    padding-left: 28px;
+    text-align: center;
+}
+
+.ueb-window-close {
+    padding: 8px;
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+}
+
+.ueb-color-picker-theme,
+.ueb-color-picker-srgb {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ueb-color-picker-main {
+    display: grid;
+    grid-template: 1fr / auto min-content min-content min-content;
+}
+
+.ueb-color-picker-wheel {
+    position: relative;
+    padding-top: 100%;
+    min-width: 200px;
+    border-radius: 100%;
+    background:
+        radial-gradient(white 5%, transparent 85%),
+        conic-gradient(from 90deg,
+            #FF0000 0deg,
+            #FFFF00 60deg,
+            #00FF00 120deg,
+            #00FFFF 180deg,
+            #0000FF 240deg,
+            #FF00FF 300deg,
+            #FF0000 360deg);
+}
+
+ueb-color-handler {
+    display: block;
+    position: absolute;
+    margin-top: -3px;
+    margin-left: -3px;
+    width: 4px;
+    height: 4px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.ueb-color-picker-wheel ueb-color-handler {
+    left: var(--ueb-color-wheel-x);
+    top: var(--ueb-color-wheel-y);
+}
+
+.ueb-color-picker-saturation,
+.ueb-color-picker-value {
+    margin: 0 6px;
+    padding-bottom: 10px;
+    width: 25px;
+}
+
+.ueb-color-picker-saturation {
+    margin-left: 25px;
+    background-image: linear-gradient(to bottom, transparent 10px, #FFFFFF 100%);
+}
+
+.ueb-color-picker-value {
+    margin-right: 25px;
+    background-image: linear-gradient(to bottom, transparent 10px, #000000 100%);
+}
+
+ueb-ui-slider {
+    display: block;
+}
+
+.ueb-color-picker-saturation ueb-ui-slider {
+    top: calc(100% - var(--ueb-color-s) * 100%)
+}
+
+.ueb-color-picker-value ueb-ui-slider {
+    top: calc(100% - var(--ueb-color-v) * 100%)
+}
+
+.ueb-color-picker-preview {
+    position: relative;
+    align-self: flex-start;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: calc(50% - 1px);
+        width: 5px;
+        border-top: 2px solid black;
+    }
+
+    &::after {
+        right: 0;
+    }
+}
+
+.ueb-color-picker-preview-old,
+.ueb-color-picker-preview-new {
+    width: 100px;
+    height: 40px;
+}
+
+.ueb-color-picker-preview-new {
+    display: flex;
+}
+
+.ueb-color-picker-preview-1,
+.ueb-color-picker-preview-2 {
+    width: 50%;
+}
+
+.ueb-color-picker-advanced {
+    display: flex;
+    column-gap: 10px;
+    padding-top: 5px;
+}
+
+.ueb-color-picker-advanced .ueb-color-picker-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.ueb-color-picker-advanced .ueb-color-picker-column>div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    &>div {
+        flex-grow: 1;
+    }
+}
+
+.ueb-color-picker-advanced .ueb-horizontal-slider {
+    flex-grow: 1;
+}
+
+ueb-ui-slider {
+    max-width: 100%;
+}
+
+.ueb-color-picker-r .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-r) * 100%);
+}
+
+.ueb-color-picker-g .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-g) * 100%);
+}
+
+.ueb-color-picker-b .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-b) * 100%);
+}
+
+.ueb-color-picker-a .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-a) * 100%);
+}
+
+.ueb-color-picker-h .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-h) * 100%);
+}
+
+.ueb-color-picker-s .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-s) * 100%);
+}
+
+.ueb-color-picker-v .ueb-horizontal-slider>ueb-ui-slider {
+    width: calc(var(--ueb-color-v) * 100%);
+}
+
+.ueb-color-picker-gradient {
+    height: 6px;
+}
+
+.ueb-color-control {
+    align-self: flex-end;
+}
+
+.ueb-color-control-label {
+    margin-right: 5px;
+    color: #c0c0c0;
+}
+
+.ueb-color-control .ueb-pin-input-content {
+    width: 8ch;
+    line-height: 20px;
+    font-family: monospace;
+    color: #c0c0c0;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "ueblueprint",
+  "description": "Unreal Engine's Blueprint visualization web library",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "dist/ueblueprint.js",
+  "types": "types.js",
+  "scripts": {
+    "build": "rollup --config && sass scss/export.scss:dist/css/ueb-style.css && sass scss/export.scss:dist/css/ueb-style.min.css --style=compressed",
+    "start": "npx http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barsdeveloper/ueblueprint.git"
+  },
+  "keywords": [
+    "unreal",
+    "engine",
+    "blueprint"
+  ],
+  "author": "barsdeveloper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/barsdeveloper/ueblueprint/issues"
+  },
+  "homepage": "https://github.com/barsdeveloper/ueblueprint#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@rollup/plugin-node-resolve": "^16",
+    "@rollup/plugin-terser": "^0",
+    "concurrently": "^9",
+    "http-server": "^14",
+    "rollup": "^4 || ^3 || ^2",
+    "rollup-plugin-copy": "^3",
+    "rollup-plugin-minify-html-literals": "^1",
+    "sass": "^1",
+    "terser": "^5"
+  },
+  "dependencies": {
+    "lit": "^3",
+    "parsernostrum": "^1"
+  }
+}

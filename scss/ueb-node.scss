@@ -1,0 +1,443 @@
+ueb-node {
+    display: block;
+    position: absolute;
+    min-width: 100px;
+    border-radius: var(--ueb-node-radius);
+    box-shadow: 0 0 1px 0 black, 1px 4px 6px 0 rgba(0, 0, 0, 0.6);
+    font-weight: lighter;
+}
+
+ueb-node.ueb-node-style-minimal,
+ueb-node.ueb-node-style-comment {
+    min-width: 0;
+}
+
+.ueb-node-border {
+    margin: -3px;
+    padding: 3px;
+    border-radius: calc(var(--ueb-node-radius) * 1.4);
+}
+
+.ueb-zoom--2 .ueb-node-border {
+    margin: 0;
+    padding: 0;
+}
+
+ueb-node[data-selected="true"]>.ueb-node-border {
+    background-image:
+        linear-gradient(to right, #f1b000 0%, #f1b000 100%),
+        linear-gradient(to bottom, #f1b000 0%, #cc6700 100%),
+        linear-gradient(to right, #cc6700 0%, #cc6700 100%),
+        linear-gradient(to bottom, #f1b000 0%, #cc6700 100%);
+    background-size: 100% 7px, 7px 100%, 100% 7px, 7px 100%;
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+}
+
+.ueb-zoom--2 ueb-node[data-selected="true"]>.ueb-node-border {
+    background: none !important;
+    outline: 3px solid #ff8d00;
+}
+
+.ueb-zoom--10 ueb-node[data-selected="true"]>.ueb-node-border {
+    outline-width: 8px;
+}
+
+.ueb-node-wrapper {
+    display: grid;
+    grid-template:
+        "top top top" min-content
+        "input center output" min-content
+        "input center variadic" 1fr
+        "development development development" min-content
+        "expansion expansion expansion" min-content
+        /
+        min-content auto min-content;
+    justify-items: space-between;
+    padding: 1px;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 2px 0 black;
+    border-radius: var(--ueb-node-radius);
+    background: rgba(14, 16, 10, 0.8);
+    overflow: hidden;
+}
+
+.ueb-zoom--2 .ueb-node-wrapper {
+    background: rgb(14, 16, 10);
+}
+
+ueb-node.ueb-node-style-operation .ueb-node-wrapper {
+    grid-template-rows: min-content auto auto min-content min-content;
+    grid-template-columns: 50% 0% 1fr;
+    box-shadow: none;
+}
+
+.ueb-node-outputs ueb-pin[data-type="exec"] .ueb-pin-wrapper {
+    min-height: 26px;
+}
+
+ueb-node.ueb-node-style-operation.ueb-node-has-inputs .ueb-node-inputs {
+    align-self: center;
+    padding-right: 40px;
+}
+
+.ueb-node-style-operation:not(.ueb-node-is-variadic) .ueb-node-outputs {
+    grid-row: 2 / 4;
+    align-self: center;
+}
+
+ueb-blueprint[data-scrolling="false"][data-selecting="false"] .ueb-draggable {
+    cursor: move;
+}
+
+.ueb-zoom--2 .ueb-node-wrapper {
+    padding: 0;
+    background: #101010;
+}
+
+.ueb-node-top {
+    grid-area: top;
+    color: #d0d0d0;
+    /* 103% is to get an effective font size of 13.4px from --ueb-font-size which is 13 px by default */
+    font-size: 103%;
+    font-weight: bold;
+    line-height: 120%;
+    white-space: nowrap;
+}
+
+ueb-node.ueb-node-style-setter .ueb-node-top {
+    max-height: 5px;
+}
+
+ueb-node.ueb-node-style-comment .ueb-node-top {
+    white-space: normal;
+}
+
+ueb-node.ueb-node-style-event .ueb-node-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 2px;
+}
+
+.ueb-node-style-default .ueb-node-top {
+    padding: 2px 20px 2px 8px;
+    box-shadow:
+        inset 5px 1px 5px -3px #ffffff40,
+        inset 0 1px 2px 0 #ffffff40;
+    border-radius: var(--ueb-node-radius) var(--ueb-node-radius) 0 0;
+    background:
+        linear-gradient(#ffffff30 1px, transparent 1px),
+        linear-gradient(170deg, rgb(var(--ueb-node-color)) 0%, rgb(var(--ueb-node-color)) 50%, transparent 100%);
+}
+
+.ueb-zoom--2 .ueb-node-style-default .ueb-node-top {
+    background: rgb(var(--ueb-node-color));
+}
+
+.ueb-node-name {
+    display: flex;
+    align-items: center;
+    background: radial-gradient(ellipse 100% 100% at 35% 55%, rgba(0, 0, 0, 0.5) 15%, transparent 50%);
+    margin: -1px -15px;
+    padding: 2px 15px;
+}
+
+.ueb-node-style-setter .ueb-node-name {
+    justify-content: center;
+}
+
+.ueb-node-name:last-child {
+    padding-right: 26px;
+}
+
+.ueb-zoom--2 .ueb-node-name {
+    background: none;
+}
+
+.ueb-zoom--8 .ueb-node-name {
+    visibility: hidden;
+}
+
+.ueb-node-name-symbol {
+    align-self: flex-start;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    color: #74bff2;
+}
+
+ueb-node[data-pure-function="true"] .ueb-node-name-symbol {
+    color: #aaeda0;
+}
+
+.ueb-node-name-symbol path {
+    vertical-align: middle;
+}
+
+.ueb-node-subtitle-text {
+    padding-top: 1px;
+    padding-right: 5px;
+    /* 0.946154 is to get an effective font size of 12.3px from --ueb-font-size which is 13 px */
+    font-size: calc(0.946154 * var(--ueb-font-size));
+    font-weight: 100;
+    font-style: italic;
+    color: #a9b78f;
+}
+
+.ueb-node-inputs {
+    grid-area: input;
+}
+
+ueb-node.ueb-node-has-inputs .ueb-node-inputs {
+    padding-right: 15px;
+    padding-left: 6px;
+}
+
+.ueb-node-outputs {
+    grid-area: output;
+}
+
+.ueb-node-outputs,
+.ueb-node-variadic {
+    padding-right: 6px;
+}
+
+.ueb-node-variadic {
+    grid-area: variadic;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-self: start;
+    justify-self: end;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.ueb-node-developmentonly {
+    grid-area: development;
+    margin-top: 4px;
+    padding: 2px;
+    background: repeating-linear-gradient(-45deg,
+            transparent 0,
+            #57590a 1px,
+            #57590a 11px,
+            transparent 12px,
+            transparent 24px);
+    background: repeating-linear-gradient(-45deg,
+            transparent 0,
+            #57590a 1px,
+            #57590a 11px,
+            transparent 12px,
+            transparent 24px);
+    text-align: center;
+}
+
+.ueb-node-developmentonly-text {
+    padding: 0 10px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 1px black;
+    white-space: nowrap;
+}
+
+.ueb-zoom--6 .ueb-node-developmentonly-text {
+    visibility: hidden;
+}
+
+.ueb-node-expansion {
+    grid-area: expansion;
+    display: none;
+    text-align: center;
+}
+
+ueb-node[data-advanced-display] .ueb-node-expansion {
+    display: block;
+}
+
+ueb-blueprint[data-scrolling="false"][data-selecting="false"] .ueb-node-expansion:hover {
+    background-color: #656765;
+    cursor: pointer;
+}
+
+.ueb-zoom--8 .ueb-node-expansion {
+    visibility: hidden;
+}
+
+.ueb-node-variadic>svg,
+.ueb-node-expansion>svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+ueb-node[data-advanced-display="Shown"] .ueb-node-expansion>svg {
+    transform: scaleY(-1)
+}
+
+ueb-node.ueb-node-style-glass .ueb-node-wrapper,
+ueb-node.ueb-node-style-glass .ueb-node-border,
+ueb-node.ueb-node-style-glass {
+    min-width: 128px;
+    border-radius: 15px;
+}
+
+ueb-node.ueb-node-style-glass .ueb-node-wrapper {
+    border: 1px solid black;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
+    padding: 3px;
+    background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0, rgba(255, 255, 255, 0.2) 4px, rgba(0, 0, 0, 0.3) 14px),
+        linear-gradient(to right, transparent 10%, rgba(var(--ueb-node-color), 0.3) 50%, transparent 90%);
+    background-size: 100%, 100% 28px;
+    background-repeat: repeat, no-repeat;
+}
+
+.ueb-zoom--2 ueb-node.ueb-node-style-glass .ueb-node-wrapper {
+    background: #101010;
+}
+
+ueb-node.ueb-node-style-glass .ueb-node-name {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+ueb-node[data-selected="true"] .ueb-node-border {
+    box-shadow: inset 0 0 0px 6px #ce8700;
+    background: none;
+}
+
+ueb-node.ueb-node-style-glass .ueb-node-top,
+ueb-node.ueb-node-style-glass .ueb-node-name {
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+}
+
+ueb-node.ueb-node-style-glass .ueb-node-outputs:first-child {
+    padding-left: 12px;
+}
+
+ueb-node.ueb-node-style-operation .ueb-node-top {
+    grid-area: center;
+    align-self: center;
+    justify-self: center;
+    padding: 0;
+    /* 215% is to get an effective font size of 28px from --ueb-font-size which is 13 px by default */
+    font-size: 215%;
+    font-stretch: condensed;
+    font-weight: bold;
+    line-height: 100%;
+}
+
+ueb-node.ueb-node-style-operation.ueb-node-style-metasound .ueb-node-top {
+    font-size: 333%;
+    font-stretch: expanded;
+}
+
+ueb-node.ueb-node-style-operation.ueb-node-style-glass .ueb-node-top {
+    z-index: -1;
+}
+
+ueb-node.ueb-node-style-operation .ueb-node-outputs {
+    align-self: end;
+}
+
+ueb-node.ueb-node-style-operation .ueb-node-variadic {
+    align-self: start;
+    margin-top: 12px;
+    margin-left: -100px;
+}
+
+ueb-node.ueb-node-style-metasound .ueb-node-wrapper {
+    border: 1px solid black;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.4) inset;
+    background: linear-gradient(to bottom,
+            rgba(52, 55, 52, 0.9) 0,
+            rgba(42, 44, 42, 0.9) 8px,
+            rgba(31, 32, 31, 0.8) 16px,
+            rgba(13, 14, 13, 0.9));
+}
+
+ueb-node.ueb-node-style-metasound .ueb-node-name-text,
+ueb-node.ueb-node-style-metasound .ueb-node-name-symbol {
+    color: #8cc483;
+}
+
+ueb-node.ueb-node-style-metasound.ueb-node-style-operation .ueb-node-name-text {
+    color: #7c7c7c;
+}
+
+ueb-node.ueb-node-style-metasound .ueb-node-name {
+    margin: 0px;
+    padding: 1px 15px;
+    justify-content: center;
+    background: none;
+}
+
+ueb-node:not(.ueb-node-style-comment) {
+    z-index: 10;
+}
+
+ueb-node.ueb-node-style-comment .ueb-node-border {
+    height: 100%;
+}
+
+ueb-node.ueb-node-style-comment .ueb-node-wrapper {
+    position: relative;
+    padding: 0;
+    height: 100%;
+    border-radius: 0;
+    background: rgba(var(--ueb-node-color), 0.35);
+    box-shadow: none;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 3px;
+        bottom: 3px;
+        width: 16px;
+        height: 16px;
+        background: linear-gradient(135deg,
+                transparent 50%,
+                #fff 50%,
+                #fff calc(50% + 2px),
+                transparent calc(50% + 2px),
+                transparent calc(50% + 3px),
+                #fff calc(50% + 3px),
+                #fff calc(50% + 5px),
+                transparent calc(50% + 5px),
+                transparent calc(50% + 7px),
+                #fff calc(50% + 7px),
+                #fff calc(50% + 9px),
+                transparent calc(50% + 9px));
+    }
+}
+
+ueb-node.ueb-node-style-comment .ueb-node-top {
+    position: relative;
+    margin: 3px;
+    padding: 3px 10px;
+    box-shadow: none;
+    border-radius: 0;
+    background: rgb(var(--ueb-node-color));
+    color: white;
+    /* 185% is to get an effective font size of 24px from --ueb-font-size which is 13 px by default */
+    font-size: 185%;
+    text-shadow: 2px 1px 1px #444, 0 0 2px #bbb;
+    line-height: 1.22;
+    z-index: 1;
+}
+
+ueb-node.ueb-node-style-conversion .ueb-node-wrapper::after {
+    content: "";
+    display: block;
+    grid-area: center;
+    align-self: center;
+    justify-self: center;
+    margin: 10px 10px 10px -6px;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #8f8f8f;
+}

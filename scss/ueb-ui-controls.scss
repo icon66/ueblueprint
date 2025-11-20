@@ -1,0 +1,167 @@
+.ueb-button {
+    min-width: 60px;
+    border: 1px solid #0f0f0f;
+    border-radius: 4px;
+    padding: 2px 10px;
+    background: #383838;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        background: #575757;
+    }
+}
+
+.ueb-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.ueb-vertical-slider>ueb-ui-slider {
+    position: relative;
+    padding-bottom: 10px;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+    }
+
+    &::before {
+        left: -4px;
+        border-left-color: #e0e0e0;
+    }
+
+    &::after {
+        right: -4px;
+        border-right-color: #e0e0e0;
+    }
+}
+
+.ueb-horizontal-slider,
+.ueb-text-input {
+    position: relative;
+    border: 1px solid #383838;
+    border-radius: 6px;
+    background: #0f0f0f;
+}
+
+.ueb-horizontal-slider {
+    position: relative;
+    padding: 1px;
+
+    &:hover {
+        cursor: ew-resize;
+    }
+}
+
+ueb-window .ueb-pin-input-content {
+    padding: 1px 10px;
+}
+
+.ueb-horizontal-slider>ueb-ui-slider {
+    display: block;
+    position: relative;
+    height: 20px;
+    border-radius: 5px;
+    background: #383838;
+}
+
+.ueb-horizontal-slider-text {
+    position: absolute;
+    padding: 0 5px;
+    line-height: 20px;
+    z-index: 1;
+}
+
+.ueb-toggle-control {
+
+    &::before {
+        content: "";
+        display: inline-block;
+        border-top: 5px solid #e0e0e0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.ueb-resizeable-top,
+.ueb-resizeable-top-right,
+.ueb-resizeable-top-left {
+    position: absolute;
+    top: 0;
+    height: 10px;
+}
+
+.ueb-resizeable-top {
+    right: 0;
+    left: 0;
+    cursor: ns-resize;
+}
+
+.ueb-resizeable-top-right {
+    right: 0;
+    width: 10px;
+    cursor: nesw-resize;
+}
+
+.ueb-resizeable-top-left {
+    left: 0;
+    width: 10px;
+    cursor: nwse-resize;
+}
+
+.ueb-resizeable-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 10px;
+    cursor: ew-resize;
+}
+
+.ueb-resizeable-bottom,
+.ueb-resizeable-bottom-right,
+.ueb-resizeable-bottom-left {
+    position: absolute;
+    bottom: -3px;
+    height: 10px;
+    cursor: ns-resize;
+}
+
+.ueb-resizeable-bottom {
+    right: 0;
+    left: 0;
+}
+
+.ueb-resizeable-bottom-right {
+    right: 0;
+    width: 10px;
+    cursor: nwse-resize;
+}
+
+.ueb-resizeable-bottom-left {
+    left: 0;
+    width: 10px;
+    cursor: nesw-resize;
+}
+
+.ueb-resizeable-left {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 10px;
+    cursor: ew-resize;
+}

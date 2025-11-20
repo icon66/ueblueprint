@@ -1,0 +1,295 @@
+ueb-blueprint {
+    --ueb-pin-color-dim: #afafaf;
+}
+
+ueb-pin {
+    --ueb-pin-background: linear-gradient(90deg,
+            rgba(var(--ueb-pin-color-rgb), 0.15),
+            rgba(var(--ueb-pin-color-rgb), 0.8) 15%,
+            rgba(var(--ueb-pin-color-rgb), 0.5) 60%,
+            rgba(var(--ueb-pin-color-rgb), 0.35) 95%,
+            transparent);
+    --ueb-pin-color: rgb(var(--ueb-pin-color-rgb));
+    display: block;
+}
+
+.ueb-node-inputs ueb-pin,
+.ueb-node-outputs ueb-pin {
+    margin: 6px 0;
+}
+
+ueb-pin.ueb-pin-input-wrap .ueb-pin-content {
+    flex-direction: column;
+    align-items: start;
+}
+
+.ueb-node-top ueb-pin {
+    min-height: 0;
+    margin-left: 10px;
+}
+
+.ueb-zoom--10 ueb-pin {
+    visibility: hidden;
+}
+
+ueb-node[data-advanced-display="Hidden"] ueb-pin[data-advanced-view="true"][data-linked="false"] {
+    display: none;
+}
+
+.ueb-pin-wrapper {
+    display: inline-flex;
+    box-sizing: border-box;
+    padding: 3px 6px;
+    min-height: 24px;
+    align-items: center;
+}
+
+ueb-node.ueb-node-style-operation .ueb-pin-wrapper {
+    padding: 0;
+}
+
+ueb-node.ueb-node-style-minimal .ueb-pin-wrapper {
+    min-height: 0;
+}
+
+.ueb-node-top .ueb-pin-wrapper {
+    padding: 2px 4px 2px 10px;
+    min-height: 0;
+    vertical-align: bottom;
+}
+
+ueb-blueprint[data-scrolling="false"][data-selecting="false"] .ueb-pin-wrapper:hover {
+    background: var(--ueb-pin-background);
+    cursor: crosshair;
+}
+
+.ueb-zoom--8 .ueb-pin-wrapper:hover {
+    background: none !important;
+}
+
+.ueb-pin-required-mark {
+    width: 0;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 4px;
+        background: var(--ueb-pin-color);
+        margin-left: -13px;
+        border-radius: 0 2px 2px 0;
+    }
+}
+
+.ueb-pin-content {
+    display: flex;
+    align-items: center;
+}
+
+.ueb-node-outputs ueb-pin {
+    text-align: right;
+}
+
+.ueb-pin-icon {
+    color: var(--ueb-pin-color);
+    text-align: left;
+}
+
+ueb-pin[data-connectable="false"] .ueb-pin-icon {
+    visibility: hidden;
+}
+
+.ueb-node-inputs .ueb-pin-icon {
+    margin-right: 6px;
+}
+
+.ueb-node-outputs .ueb-pin-icon {
+    margin-left: 4px;
+}
+
+.ueb-pin-icon>svg {
+    display: block;
+}
+
+ueb-pin[data-direction="output"] .ueb-pin-reflect-output {
+    transform: scaleX(-1);
+}
+
+ueb-pin[data-type="exec"] .ueb-pin-icon {
+    width: 15px;
+    height: 15px;
+    --ueb-pin-color: white;
+}
+
+ueb-pin[data-linked="true"] .ueb-pin-tofill {
+    fill: currentColor;
+}
+
+ueb-pin[data-linked="true"] .ueb-pin-tostroke {
+    stroke: black;
+}
+
+ueb-pin.ueb-node-variadic-default {
+    position: relative;
+    margin-top: 14px;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        top: -8px;
+        left: 6px;
+        background: linear-gradient(90deg,
+                transparent 0,
+                #404240 6px,
+                #404240 calc(100% - 6px),
+                transparent 100%);
+    }
+}
+
+.ueb-zoom--6 .ueb-pin-content {
+    visibility: hidden;
+}
+
+ueb-node[data-type="/Script/BlueprintGraph.K2Node_VariableSet"] ueb-pin[data-direction="output"] .ueb-pin-content {
+    display: none;
+}
+
+.ueb-pin-input-wrapper {
+    display: flex;
+    padding-left: 8px;
+}
+
+.ueb-pin-input {
+    margin-left: 5px;
+    border: 1px solid #a0a0a0;
+    border-radius: 3px;
+    padding: 0 4px 0 4px;
+    color: #e0e0e0;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-within {
+        background: #ffffff46;
+        outline: none;
+    }
+}
+
+.ueb-pin-input[type="checkbox"] {
+    display: grid;
+    place-content: center;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #353535;
+    background: #0f0f0f;
+
+    &:checked::before {
+        content: "";
+        height: 0.7em;
+        width: 0.8em;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        background: #0070e0;
+    }
+
+}
+
+ueb-pin[data-linked="true"] .ueb-pin-input,
+ueb-pin[data-linked="true"] .ueb-pin-input-wrapper {
+    display: none;
+}
+
+ueb-pin[data-type="bool"] .ueb-pin-input {
+    appearance: none;
+    padding: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #0f0f0f;
+    color: var(--ueb-pin-color);
+}
+
+ueb-pin[data-type="bool"] .ueb-pin-input:checked {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="none" stroke="%230070e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M 5 10 l 3 3 l 6 -6" /></svg>');
+}
+
+ueb-pin[data-type="/Script/CoreUObject.LinearColor"] .ueb-pin-input {
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    border-color: #505050;
+    border-radius: 0;
+    background-color: var(--ueb-linear-color);
+}
+
+.ueb-pin-input-label~.ueb-pin-input {
+    margin-left: 2px;
+}
+
+.ueb-pin-input-label {
+    margin-left: 10px;
+    color: #777777;
+}
+
+.ueb-pin-input-label:first-child {
+    margin-left: 2px;
+}
+
+.ueb-pin-input-content {
+    display: block;
+    outline: none;
+    border: none;
+    padding: 0;
+    min-width: 10px;
+    max-width: 400px;
+    max-height: 16em;
+    /* 97% is to get an effective font size of 12.6px from --ueb-font-size which is 13 px by default */
+    font-size: 97%;
+    white-space: pre;
+    background: none;
+    color: inherit;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 10px;
+        margin: 4px;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background: #575757;
+    }
+}
+
+ueb-blueprint[data-scrolling="false"][data-selecting="false"] .ueb-pin-input-content:hover {
+    cursor: text;
+}
+
+ueb-dropdown {
+    display: block;
+}
+
+ueb-dropdown.ueb-pin-input {
+    margin-right: 5px;
+    padding-right: 10px;
+    background: #101010 !important;
+    color: #c0c0c0;
+    border-color: #404040;
+}
+
+ueb-dropdown.ueb-pin-input .ueb-pin-input-content {
+    padding: 6px;
+    width: max(170px, var(--ueb-dropdown-width));
+    max-width: 400px;
+    background: none;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+    cursor: default !important;
+}
